@@ -20,7 +20,7 @@ class Program
         {
             Console.Write(s+" ");
         }
-
+        //го бухати
         Console.WriteLine("result: " + result.getResult(queue));
     }
   
