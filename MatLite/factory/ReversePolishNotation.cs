@@ -13,41 +13,23 @@ namespace MatLite.factory
         private Queue<string> numQueue = new Queue<string>();
         private Stack<string> operatorStack = new Stack<string>();
         private double num;
-
-        private static int GetOperatorPrecedence(string op)
+        public Queue<string> GetReversePolishNotations(string formula,PairsDictionary pairs)
         {
-            switch (op)
-            {
-                case "+":
-                case "-":
-                    return 1;
-                case "*":
-                case "/":
-                    return 2;
-                case "^":
-                    return 3;
-                default:
-                    return 0;
-            }
-        }
-        public Queue<string> GetReversePolishNotation(string formula)
-        {
-            formula = formula.Replace(" ", ""); formula = formula.Replace(".", ",");
-
-            string pattern = @"(\d+(\,\d+)?|\+|\-|\*|\/|\(|\)|\^)";
-            MatchCollection matches = Regex.Matches(formula, pattern);
-            string[] formulaArray = new string[matches.Count];
-
-            for (int i = 0; i < matches.Count; i++)
-            {
-                formulaArray[i] = matches[i].ToString();
-            }
+            PatternRegex pattern = new PatternRegex();
+            string[] formulaArray = pattern.PatternString(formula);
 
             foreach (string charFormula in formulaArray)
             {
-                if (double.TryParse(charFormula, out num))
+                if (double.TryParse(charFormula, out num)|| pairs.dictionary.ContainsKey(charFormula))
                 {
-                    numQueue.Enqueue(charFormula);
+                    if (pairs.dictionary.ContainsKey(charFormula))
+                    {
+                        numQueue.Enqueue(pairs.dictionary[charFormula]);
+                    }
+                    else
+                    {
+                        numQueue.Enqueue(charFormula);
+                    }
                 }
                 else if (charFormula == "(")
                 {
@@ -66,7 +48,7 @@ namespace MatLite.factory
                 }
                 else if (IsOperator(charFormula))
                 {
-                    while (operatorStack.Count > 0 && (GetOperatorPrecedence(operatorStack.Peek()) >= GetOperatorPrecedence(charFormula)))
+                    while (operatorStack.Count > 0 && (GetOperatorPrecedences.GetOperatorPrecedence(operatorStack.Peek()) >= GetOperatorPrecedences.GetOperatorPrecedence(charFormula)))
                     {
                         numQueue.Enqueue(operatorStack.Pop());
                     }

@@ -6,10 +6,15 @@ class Program
 
     static void Main(string[] args)
     {
-        string formula = "(2*3)^(4-2)";
+        Pairs pair=new Pairs("s","4");
+        Pairs pair2 = new Pairs("f3,1", "25");
+        PairsDictionary pairs = new PairsDictionary();
+        pairs.AddDictionary(pair); pairs.AddDictionary(pair2);
+
+        string formula = "(2,5*4)^(s-2)+f3,1";
         
         ReversePolishNotation pl = new ReversePolishNotation();
-        Queue<string> queue = pl.GetReversePolishNotation(formula);
+        Queue<string> queue = pl.GetReversePolishNotations(formula,pairs);
         Calculation result= new Calculation();
 
         Console.WriteLine("Enter user formula:");
@@ -22,6 +27,7 @@ class Program
         }
         //го бухати
         Console.WriteLine("result: " + result.getResult(queue));
+        
     }
   
 }

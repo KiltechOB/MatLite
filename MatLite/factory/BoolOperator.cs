@@ -8,9 +8,9 @@ namespace MatLite.factory
 {
     public class BoolOperator
     {
-        public static bool IsOperator(string c)
+        public static bool IsOperator(string operation)
         {
-            return c == "+" || c == "-" || c == "*" || c == "/" || c == "^";
+            return operation == "+" || operation == "-" || operation == "*" || operation == "/" || operation == "^";
         }
     }
 }
