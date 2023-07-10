@@ -5,6 +5,10 @@ VisualStudioVersion = 17.4.33403.182
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatLite", "MatLite\MatLite.csproj", "{B62EBECF-0611-4241-B29B-A518B2214496}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interface", "Interface\Interface.csproj", "{5638D495-BEC9-4436-97E3-13A0FAED9153}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "User_Interface", "User_Interface\User_Interface.csproj", "{D4AA49CD-E0BA-4619-B3D6-F9413350AE2D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{B62EBECF-0611-4241-B29B-A518B2214496}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B62EBECF-0611-4241-B29B-A518B2214496}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B62EBECF-0611-4241-B29B-A518B2214496}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5638D495-BEC9-4436-97E3-13A0FAED9153}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5638D495-BEC9-4436-97E3-13A0FAED9153}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5638D495-BEC9-4436-97E3-13A0FAED9153}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5638D495-BEC9-4436-97E3-13A0FAED9153}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4AA49CD-E0BA-4619-B3D6-F9413350AE2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4AA49CD-E0BA-4619-B3D6-F9413350AE2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4AA49CD-E0BA-4619-B3D6-F9413350AE2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4AA49CD-E0BA-4619-B3D6-F9413350AE2D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
