@@ -92,10 +92,12 @@ namespace User_Interface.ViewModels
                 {
                     ActiveTextBox.Text = ActiveTextBox.Text.Remove(ActiveTextBox.SelectionStart - 1, 1);
                     
-                    ReversePolishNotation reverse= new ReversePolishNotation();                   
-                    Calculation calculation = new Calculation();
+                    ReversePolishNotation reverse= new ReversePolishNotation();
                     Queue<string> formula = reverse.GetReversePolishNotations(ActiveTextBox.Text);
+
+                    Calculation calculation = new Calculation();          
                     double result = calculation.getResult(formula);
+
                     ListPairs += string.Join("",formula);
                     ActiveTextBox.Text += $"={result};";
                     ActiveTextBox.Focus();

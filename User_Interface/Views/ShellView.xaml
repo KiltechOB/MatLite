@@ -127,6 +127,8 @@
         <!--Grid column 5-->
         <Button x:Name="Square" Grid.Row="3" Grid.Column="5" Height="25" Width="80" 
                 Margin="5" Grid.ColumnSpan="1">Square</Button>
+        <Button x:Name="CreateTextBoxPairs" Grid.Row="4" Grid.Column="6" Grid.ColumnSpan="2"
+        Width="75" Height="25" Margin="0,5,0,0">Create Pairs</Button>
 
         <!--Buttons-->
         <!-- Grid column 5-->
@@ -136,11 +138,18 @@
             <TextBlock x:Name="ListPairs" Text="Pairs" MinWidth="100"/>
         </Border>
 
-        <Grid Grid.Row="4" Grid.Column="5" Grid.ColumnSpan="3" Grid.RowSpan="10" 
+        <TextBlock x:Name="TitlePairs" Grid.Row="4" Grid.Column="5" Grid.ColumnSpan="2"
+                   Text="Enter initial pairs:" HorizontalAlignment="Center" FontSize="14"
+                   Margin="10,10,0,0"/>
+
+        <TextBox x:Name="FirstPairs" Grid.Row="5" Grid.Column="5" Grid.ColumnSpan="3"
+                 Margin="10,5,0,0"/>
+
+        <Grid Grid.Row="6" Grid.Column="5" Grid.ColumnSpan="3" Grid.RowSpan="8" 
               Margin="10,5,0,0" >
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel x:Name="formulaSize">
-                    <TextBlock x:Name="FirtBlock" Text="Create text box and enter you formula:" HorizontalAlignment="Center" FontSize="14"/>
+                    <TextBlock x:Name="TitleBox" Text="Create text box and enter you formula:" HorizontalAlignment="Center" FontSize="14"/>
                     <ItemsControl  ItemsSource="{Binding TextBoxes}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
