@@ -127,25 +127,63 @@
         <!--Grid column 5-->
         <Button x:Name="Square" Grid.Row="3" Grid.Column="5" Height="25" Width="80" 
                 Margin="5" Grid.ColumnSpan="1">Square</Button>
+        
         <Button x:Name="CreateTextBoxPairs" Grid.Row="4" Grid.Column="6" Grid.ColumnSpan="2"
         Width="75" Height="25" Margin="0,5,0,0">Create Pairs</Button>
 
         <!--Buttons-->
         <!-- Grid column 5-->
 
-        <Border BorderBrush="#cccccc" BorderThickness="2" Grid.Row="4" Grid.Column="2" Grid.RowSpan="9"
-                Margin="0,5,0,5">
-            <TextBlock x:Name="ListPairs" Text="Pairs" MinWidth="100"/>
-        </Border>
+        <!--<Border BorderBrush="#cccccc" BorderThickness="2" Grid.Row="4" 
+                Grid.Column="2" Grid.RowSpan="9" Margin="0,5,0,5">-->
+            <!--<TextBlock x:Name="ListPairs" MinWidth="100" FontSize="18">
+            <ItemsControl ItemsSource="{Binding pairsDictionary}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding allPairs}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            </TextBlock>-->            
+        <!--</Border>-->
+        <ItemsControl BorderBrush="#cccccc" BorderThickness="2" Grid.Row="4" 
+                Grid.Column="2" Grid.RowSpan="9" Margin="0,5,0,5" x:Name="pairsDictionary">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Vertical" >
+                        <TextBlock Text="{Binding allPairs}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
 
         <TextBlock x:Name="TitlePairs" Grid.Row="4" Grid.Column="5" Grid.ColumnSpan="2"
                    Text="Enter initial pairs:" HorizontalAlignment="Center" FontSize="14"
                    Margin="10,10,0,0"/>
 
-        <TextBox x:Name="FirstPairs" Grid.Row="5" Grid.Column="5" Grid.ColumnSpan="3"
-                 Margin="10,5,0,0"/>
 
-        <Grid Grid.Row="6" Grid.Column="5" Grid.ColumnSpan="3" Grid.RowSpan="8" 
+        <Grid Grid.Row="5" Grid.Column="5" Grid.ColumnSpan="3" Grid.RowSpan="2" Margin="10,5,0,0">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                <WrapPanel Orientation="Horizontal" Width="Auto">
+                    <ItemsControl ItemsSource="{Binding PairsBoxes}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" Width="Auto"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <TextBox x:Name="BoxPairs" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </WrapPanel>
+            </ScrollViewer>
+        </Grid>
+
+
+        <Grid Grid.Row="7" Grid.Column="5" Grid.ColumnSpan="3" Grid.RowSpan="7" 
               Margin="10,5,0,0" >
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel x:Name="formulaSize">

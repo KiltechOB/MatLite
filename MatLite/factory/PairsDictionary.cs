@@ -7,22 +7,38 @@ using System.Xml.Linq;
 
 namespace MatLite.factory
 {
-    public class PairsDictionary
+    public class PairsDictionary : Pairs
     {
-        private string key;
-        public string Key { get { return key; } set { key = value; } }
-
-        private string values;
-        public string Values { get { return values; } set { values = value; } }
-
+        public string allPairs
+        {
+            get
+            {
+                return allPairs;
+            }
+            set { allPairs = value; }
+        }
         public Dictionary<string, string> dictionary=new Dictionary<string, string>();
         
         public void AddDictionary(Pairs pairs)
         {
-            if (!dictionary.ContainsKey(pairs.Name))
+
+            if (dictionary.ContainsKey(pairs.Name))
+            {
+                dictionary[pairs.Name] = pairs.Values;
+            }
+            else
             {
                 dictionary.Add(pairs.Name, pairs.Values);
             }
+        }
+
+        public string WriteAllPairs()
+        {
+            foreach (KeyValuePair<string, string> pair in dictionary)
+            {
+                allPairs+=$"{pair.Key} = {pair.Value}; \n";
+            }
+            return allPairs;
         }
     }
 }

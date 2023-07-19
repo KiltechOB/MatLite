@@ -13,18 +13,18 @@ namespace MatLite.factory
         private Queue<string> numQueue = new Queue<string>();
         private Stack<string> operatorStack = new Stack<string>();
         private double num;
-        public Queue<string> GetReversePolishNotations(string formula,PairsDictionary pairs=null)
+        public Queue<string> GetReversePolishNotations(string formula,PairsDictionary pairss=null)
         {
             PatternRegex pattern = new PatternRegex();
             string[] formulaArray = pattern.PatternString(formula);
 
             foreach (string charFormula in formulaArray)
             {
-                if (double.TryParse(charFormula, out num)||(pairs!=null&& pairs.dictionary.ContainsKey(charFormula)))
+                if (double.TryParse(charFormula, out num) || (pairss != null && pairss.dictionary.ContainsKey(charFormula)))
                 {
-                    if (pairs != null && pairs.dictionary.ContainsKey(charFormula))
+                    if (pairss != null && pairss.dictionary.ContainsKey(charFormula))
                     {
-                        numQueue.Enqueue(pairs.dictionary[charFormula]);
+                        numQueue.Enqueue(pairss.dictionary[charFormula].Replace(".",","));
                     }
                     else
                     {
@@ -56,12 +56,10 @@ namespace MatLite.factory
                     operatorStack.Push(charFormula);
                 }
             }
-
             while (operatorStack.Count > 0)
             {
                 numQueue.Enqueue(operatorStack.Pop());
             }
-
             return numQueue;
         }
     }

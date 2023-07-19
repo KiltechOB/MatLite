@@ -15,16 +15,49 @@ using MatLite.factory;
 
 namespace User_Interface.ViewModels
 {
-    public class ShellViewModel: Screen
+    public class ShellViewModel : Screen
     {
-        private string listPairs = "Pairs";
+        private string listPairs;
         public string ListPairs
         {
             get { return listPairs; }
-            set 
-            { 
+            set
+            {
                 listPairs = value;
                 NotifyOfPropertyChange(() => listPairs);
+            }
+        }
+
+        private Pairs pair;
+        public Pairs pairs
+        {
+            get { return pair; }
+            set
+            {
+                pair = value;
+                NotifyOfPropertyChange(() => pair);
+            }
+        }
+
+        private PairsDictionary pairsdictionary;
+        public PairsDictionary pairsDictionary
+        {
+            get { return pairsdictionary; }
+            set
+            {
+                pairsdictionary = value;
+                NotifyOfPropertyChange(() => pairsdictionary);
+            }
+        }
+
+        private ObservableCollection<TextBox> pairsBoxes;
+        public ObservableCollection<TextBox> PairsBoxes
+        {
+            get { return pairsBoxes; }
+            set
+            {
+                pairsBoxes = value;
+                NotifyOfPropertyChange(() => pairsBoxes);
             }
         }
 
@@ -43,10 +76,10 @@ namespace User_Interface.ViewModels
         public TextBox Box
         {
             get { return box; }
-            set 
+            set
             {
-                box = value; 
-                NotifyOfPropertyChange(()=> box);
+                box = value;
+                NotifyOfPropertyChange(() => box);
             }
         }
 
@@ -61,44 +94,55 @@ namespace User_Interface.ViewModels
             }
         }
 
-        public ShellViewModel() 
+        public ShellViewModel()
         {
             TextBoxes = new ObservableCollection<TextBox>();
-            Box=new TextBox();
+            Box = new TextBox();
+            PairsBoxes = new ObservableCollection<TextBox>();
+            pairs = new Pairs();
+            pairsDictionary=new PairsDictionary();
         }
 
+        public void CreateTextBoxPairs()
+        {
+            Box = new TextBox();
+            StylesPairsBox(Box);
+            PairsBoxes.Add(Box);
+            Box.Focus();
+        }
         public void CreateTextBox()
         {
-            //TextBox Box = new TextBox();
-            Box=new TextBox();
-            Styless(Box);
+            Box = new TextBox();
+            StylesFornulaBox(Box);
             TextBoxes.Add(Box);
-            Box.Focus();          
+            Box.Focus();
         }
 
         public void Clear_All()
         {
             ListPairs = "";
-            TextBoxes.Clear();            
+            TextBoxes.Clear();
         }
+
 
         public void formulaSize(object sender, KeyEventArgs e)
         {
             if (TextBoxes.Count() > 0 && e.Key == Key.OemPlus)
             {
-                ActiveTextBox = sender as TextBox;
-                
+                //ActiveTextBox = sender as TextBox;
+
                 if (ActiveTextBox != null && !Keyboard.IsKeyDown(Key.LeftShift) && !Keyboard.IsKeyDown(Key.RightShift))
                 {
                     ActiveTextBox.Text = ActiveTextBox.Text.Remove(ActiveTextBox.SelectionStart - 1, 1);
-                    
-                    ReversePolishNotation reverse= new ReversePolishNotation();
-                    Queue<string> formula = reverse.GetReversePolishNotations(ActiveTextBox.Text);
 
-                    Calculation calculation = new Calculation();          
+
+                    ReversePolishNotation reverse = new ReversePolishNotation();
+
+                    Queue<string> formula = reverse.GetReversePolishNotations(ActiveTextBox.Text, pairsDictionary);
+
+                    Calculation calculation = new Calculation();
                     double result = calculation.getResult(formula);
 
-                    ListPairs += string.Join("",formula);
                     ActiveTextBox.Text += $"={result};";
                     ActiveTextBox.Focus();
                     ActiveTextBox.CaretIndex = ActiveTextBox.Text.Length;
@@ -106,7 +150,42 @@ namespace User_Interface.ViewModels
             }
         }
 
-        private void Styless(TextBox x)
+        public void AddMainPairs(object sender, KeyEventArgs e)
+        {
+            if (PairsBoxes.Count() > 0 && e.Key == Key.OemSemicolon)
+            {
+                if (ActiveTextBox != null)
+                {
+                    ActiveTextBox.Text = ActiveTextBox.Text.Remove(ActiveTextBox.SelectionStart - 1, 1);
+
+                    string [] textPairs = ActiveTextBox.Text.Split("=");
+                    pairs.Name = textPairs[0]; pairs.Values = textPairs[1];
+                    pairsDictionary.AddDictionary(pairs);
+                    
+                    ActiveTextBox.Text += ';';
+                    ActiveTextBox.Focus();
+                    ActiveTextBox.CaretIndex = ActiveTextBox.Text.Length;
+                    
+                }
+            }
+        }
+
+        private void StylesPairsBox(TextBox x)
+        {
+            x.Background = Brushes.White;
+            x.BorderBrush = new SolidColorBrush(Color.FromRgb(0xcc, 0xcc, 0xcc));
+            x.Padding = new Thickness(2);
+            x.FontFamily = new FontFamily("Times New Roman");
+            x.FontSize = 18;
+            x.MinWidth = 80;
+            x.Height = 60;
+            x.VerticalContentAlignment = VerticalAlignment.Center;
+            x.HorizontalContentAlignment = HorizontalAlignment.Center;
+            x.KeyUp += AddMainPairs;
+            x.GotFocus += TextBox_GotFocus;
+        }
+
+        private void StylesFornulaBox(TextBox x)
         {
             x.Background = Brushes.White;
             x.BorderBrush = new SolidColorBrush(Color.FromRgb(0xcc, 0xcc, 0xcc));
@@ -115,7 +194,7 @@ namespace User_Interface.ViewModels
             x.FontSize = 18;
             x.MinWidth = 40;
             x.MinHeight = 40;
-            x.MaxHeight =110;
+            x.MaxHeight = 110;
             x.AcceptsReturn = true;
             x.AcceptsTab = true;
             x.VerticalContentAlignment = VerticalAlignment.Center;
