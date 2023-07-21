@@ -9,14 +9,6 @@ namespace MatLite.factory
 {
     public class PairsDictionary : Pairs
     {
-        public string allPairs
-        {
-            get
-            {
-                return allPairs;
-            }
-            set { allPairs = value; }
-        }
         public Dictionary<string, string> dictionary=new Dictionary<string, string>();
         
         public void AddDictionary(Pairs pairs)
@@ -32,13 +24,13 @@ namespace MatLite.factory
             }
         }
 
-        public string WriteAllPairs()
-        {
-            foreach (KeyValuePair<string, string> pair in dictionary)
-            {
-                allPairs+=$"{pair.Key} = {pair.Value}; \n";
-            }
-            return allPairs;
-        }
+        //public string WriteAllPairs()
+        //{
+        //    foreach (KeyValuePair<string, string> pair in dictionary)
+        //    {
+        //        allPairs+=$"{pair.Key} = {pair.Value}; \n";
+        //    }
+        //    return allPairs;
+        //}
     }
 }

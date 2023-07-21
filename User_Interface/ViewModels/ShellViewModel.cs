@@ -17,6 +17,8 @@ namespace User_Interface.ViewModels
 {
     public class ShellViewModel : Screen
     {
+        private string forbiddenChars = "`~!@#$&_|{}><?₴\'!№?_\"";
+        public string [] Text { get; set; }
         private string listPairs;
         public string ListPairs
         {
@@ -24,7 +26,7 @@ namespace User_Interface.ViewModels
             set
             {
                 listPairs = value;
-                NotifyOfPropertyChange(() => listPairs);
+                NotifyOfPropertyChange(() => ListPairs);
             }
         }
 
@@ -35,7 +37,7 @@ namespace User_Interface.ViewModels
             set
             {
                 pair = value;
-                NotifyOfPropertyChange(() => pair);
+                NotifyOfPropertyChange(() => pairs);
             }
         }
 
@@ -46,7 +48,7 @@ namespace User_Interface.ViewModels
             set
             {
                 pairsdictionary = value;
-                NotifyOfPropertyChange(() => pairsdictionary);
+                NotifyOfPropertyChange(() => pairsDictionary);
             }
         }
 
@@ -57,7 +59,7 @@ namespace User_Interface.ViewModels
             set
             {
                 pairsBoxes = value;
-                NotifyOfPropertyChange(() => pairsBoxes);
+                NotifyOfPropertyChange(() => PairsBoxes);
             }
         }
 
@@ -68,7 +70,7 @@ namespace User_Interface.ViewModels
             set
             {
                 textBoxes = value;
-                NotifyOfPropertyChange(() => textBoxes);
+                NotifyOfPropertyChange(() => TextBoxes);
             }
         }
 
@@ -79,18 +81,18 @@ namespace User_Interface.ViewModels
             set
             {
                 box = value;
-                NotifyOfPropertyChange(() => box);
+                NotifyOfPropertyChange(() => Box);
             }
         }
 
         private TextBox activeTextBox;
         public TextBox ActiveTextBox
         {
-            get { return box; }
+            get { return activeTextBox; }
             set
             {
-                box = value;
-                NotifyOfPropertyChange(() => activeTextBox);
+                activeTextBox = value;
+                NotifyOfPropertyChange(() => ActiveTextBox);
             }
         }
 
@@ -122,34 +124,26 @@ namespace User_Interface.ViewModels
         {
             ListPairs = "";
             TextBoxes.Clear();
+            PairsBoxes.Clear();
+            forbiddenChars = forbiddenChars.Replace("=","");
         }
 
-
-        public void formulaSize(object sender, KeyEventArgs e)
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            if (TextBoxes.Count() > 0 && e.Key == Key.OemPlus)
+            if (ActiveTextBox.Text.Contains("="))
             {
-                //ActiveTextBox = sender as TextBox;
+                forbiddenChars += "=";
+            }
+            else
+            {
+                forbiddenChars = forbiddenChars.Replace("=", "");
+            }
 
-                if (ActiveTextBox != null && !Keyboard.IsKeyDown(Key.LeftShift) && !Keyboard.IsKeyDown(Key.RightShift))
-                {
-                    ActiveTextBox.Text = ActiveTextBox.Text.Remove(ActiveTextBox.SelectionStart - 1, 1);
-
-
-                    ReversePolishNotation reverse = new ReversePolishNotation();
-
-                    Queue<string> formula = reverse.GetReversePolishNotations(ActiveTextBox.Text, pairsDictionary);
-
-                    Calculation calculation = new Calculation();
-                    double result = calculation.getResult(formula);
-
-                    ActiveTextBox.Text += $"={result};";
-                    ActiveTextBox.Focus();
-                    ActiveTextBox.CaretIndex = ActiveTextBox.Text.Length;
-                }
+            if (forbiddenChars.Contains(e.Text))
+            {
+                e.Handled = true;
             }
         }
-
         public void AddMainPairs(object sender, KeyEventArgs e)
         {
             if (PairsBoxes.Count() > 0 && e.Key == Key.OemSemicolon)
@@ -157,17 +151,58 @@ namespace User_Interface.ViewModels
                 if (ActiveTextBox != null)
                 {
                     ActiveTextBox.Text = ActiveTextBox.Text.Remove(ActiveTextBox.SelectionStart - 1, 1);
+                    Text = ActiveTextBox.Text.Split("=");
+                    pairs.Name = Text[0]; pairs.Values = Text[1];
 
-                    string [] textPairs = ActiveTextBox.Text.Split("=");
-                    pairs.Name = textPairs[0]; pairs.Values = textPairs[1];
-                    pairsDictionary.AddDictionary(pairs);
-                    
                     ActiveTextBox.Text += ';';
+                    pairsDictionary.AddDictionary(pairs);
                     ActiveTextBox.Focus();
                     ActiveTextBox.CaretIndex = ActiveTextBox.Text.Length;
-                    
                 }
             }
+        }
+        public void formulaSize(object sender, KeyEventArgs e)
+        {                  
+            if (TextBoxes.Count() > 0 && e.Key == Key.OemSemicolon)
+            {
+                if (ActiveTextBox != null)
+                {
+                    formulaCalculation();
+                }
+                //if (ActiveTextBox != null && activeTextBox.Text.Split('=').Any())
+                //{
+                //    ActiveTextBox.Text = ActiveTextBox.Text.Remove(ActiveTextBox.SelectionStart - 1, 1);
+                //    Text = ActiveTextBox.Text.Split("=");
+
+                //    ReversePolishNotation reverse = new ReversePolishNotation();
+                //    Queue<string> formula = reverse.GetReversePolishNotations(ActiveTextBox.Text, pairsDictionary);
+                //    Calculation calculation = new Calculation();
+                //    double result = calculation.getResult(formula);
+                //    pairs.Name = Text[0]; pairs.Values = result.ToString();
+                //    ActiveTextBox.Text += $"={result};";
+                //    pairsDictionary.AddDictionary(pairs);
+                //    ActiveTextBox.Focus();
+                //    ActiveTextBox.CaretIndex = ActiveTextBox.Text.Length;
+                //}
+            }
+        }
+        public void formulaCalculation()
+        {
+
+            ActiveTextBox.Text = ActiveTextBox.Text.Remove(ActiveTextBox.SelectionStart - 1, 1);
+            Text = ActiveTextBox.Text.Split("=");
+
+            ReversePolishNotation reverse = new ReversePolishNotation();
+            Queue<string> formula = reverse.GetReversePolishNotations(ActiveTextBox.Text, pairsDictionary);
+            Calculation calculation = new Calculation();
+            double result = calculation.getResult(formula);
+
+            pairs.Name = Text[0];pairs.Values = result.ToString();
+            ActiveTextBox.Text += $"={result};";
+
+            pairsDictionary.AddDictionary(pairs);
+            ActiveTextBox.Focus();
+            ActiveTextBox.CaretIndex = ActiveTextBox.Text.Length;
         }
 
         private void StylesPairsBox(TextBox x)
@@ -183,6 +218,12 @@ namespace User_Interface.ViewModels
             x.HorizontalContentAlignment = HorizontalAlignment.Center;
             x.KeyUp += AddMainPairs;
             x.GotFocus += TextBox_GotFocus;
+            x.PreviewTextInput += TextBox_PreviewTextInput;
+        }
+
+        private void X_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void StylesFornulaBox(TextBox x)
@@ -201,7 +242,9 @@ namespace User_Interface.ViewModels
             x.HorizontalContentAlignment = HorizontalAlignment.Center;
             x.KeyUp += formulaSize;
             x.GotFocus += TextBox_GotFocus;
+            x.PreviewTextInput += TextBox_PreviewTextInput;
         }
+
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             ActiveTextBox = sender as TextBox;
@@ -339,12 +382,10 @@ namespace User_Interface.ViewModels
                 SymbolInsert(ActiveTextBox, ")");
             }
         }
-        public void Equal(object sender)
+        public void Сalculation(object sender, KeyEventArgs e)
         {
-            if (ActiveTextBox != null)
-            {
-                SymbolInsert(ActiveTextBox, "=");
-            }
+            SymbolInsert(ActiveTextBox, "=");
+            formulaCalculation();
         }
 
     }

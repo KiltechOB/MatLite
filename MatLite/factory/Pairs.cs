@@ -7,39 +7,31 @@ using System.Threading.Tasks;
 
 namespace MatLite.factory
 {
-        public class Pairs
+    public class Pairs
+    {
+        public string Name { get; set; }
+        public string Values { get; set; }
+
+        public Pairs()
         {
-            private string name;
-            public string Name { get { return name; } set { name = value; } }
 
-            private string values;
-            public string Values { get { return values; } set { values = value; } }
+        }
+        public Pairs(string Name, string Values)
+        {
+            this.Name = Name;
+            this.Values = Values;
+        }
 
-            public string FullName()
+        public string Converting(string name)
+        {
+            if (name.Equals(Name))
             {
-                return $"{Name} = {Values}; \n";
+                return Values;
             }
-
-            public Pairs()
+            else
             {
-
-            }
-            public Pairs(string Name, string Values)
-            {
-                this.Name = Name;
-                this.Values = Values;
-            }
-
-            public string Converting(string name)
-            {
-                if (name.Equals(Name))
-                {
-                    return Values;
-                }
-                else
-                {
-                    return name;
-                }
+                return name;
             }
         }
+    }
 }

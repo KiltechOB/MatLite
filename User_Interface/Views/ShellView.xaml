@@ -119,8 +119,14 @@
         <!--Grid column 3-4-->
         <Button x:Name="Root" Grid.Row="3" Grid.Column="3" Height="25" Width="80" 
                 Margin="5" Grid.ColumnSpan="2">Root</Button>
-        <Button x:Name="Equal" Grid.Row="12" Grid.Column="3" Grid.ColumnSpan="2"
-        Width="75" Height="25">=</Button>
+        <Button x:Name="Сalculation" Grid.Row="12" Grid.Column="3" Grid.ColumnSpan="2"
+        Width="75" Height="40">
+            <TextBlock TextAlignment="Center">
+                <Run Text="Calculation"/>
+                <LineBreak/>
+                <Run Text="or press ';'"/>
+            </TextBlock>
+        </Button>
 
         <Button x:Name="CreateTextBox" Grid.Row="13" Grid.Column="3" Grid.ColumnSpan="2"
         Width="75" Height="25">Create Box</Button>
@@ -134,29 +140,17 @@
         <!--Buttons-->
         <!-- Grid column 5-->
 
-        <!--<Border BorderBrush="#cccccc" BorderThickness="2" Grid.Row="4" 
-                Grid.Column="2" Grid.RowSpan="9" Margin="0,5,0,5">-->
-            <!--<TextBlock x:Name="ListPairs" MinWidth="100" FontSize="18">
-            <ItemsControl ItemsSource="{Binding pairsDictionary}">
+        <Border BorderBrush="#cccccc" BorderThickness="2" Grid.Row="4" 
+                Grid.Column="2" Grid.RowSpan="9" Margin="0,5,0,5">
+            <TextBlock x:Name="ListPairs" MinWidth="100" FontSize="18">
+            <ItemsControl>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding allPairs}" />
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-            </TextBlock>-->            
-        <!--</Border>-->
-        <ItemsControl BorderBrush="#cccccc" BorderThickness="2" Grid.Row="4" 
-                Grid.Column="2" Grid.RowSpan="9" Margin="0,5,0,5" x:Name="pairsDictionary">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Vertical" >
-                        <TextBlock Text="{Binding allPairs}"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-
+            </TextBlock>            
+        </Border>
 
         <TextBlock x:Name="TitlePairs" Grid.Row="4" Grid.Column="5" Grid.ColumnSpan="2"
                    Text="Enter initial pairs:" HorizontalAlignment="Center" FontSize="14"
