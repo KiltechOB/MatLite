@@ -10,7 +10,7 @@ namespace MatLite.factory
     {
         public static bool IsOperator(string operation)
         {
-            return operation == "+" || operation == "-" || operation == "*" || operation == "/" || operation == "^";
+            return operation == "+" || operation == "-" || operation == "*" || operation == "/" || operation == "^"|| operation== "√";
         }
     }
 }

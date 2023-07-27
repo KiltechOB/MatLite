@@ -12,11 +12,27 @@ using System.Windows.Media;
 using System.Reflection;
 using MatLite;
 using MatLite.factory;
+using MatLite.constants;
+using System.Diagnostics.CodeAnalysis;
+using MathNet.Symbolics;
 
 namespace User_Interface.ViewModels
 {
     public class ShellViewModel : Screen
     {
+        private Constants constants;
+        //public Constants Constant
+        //{
+        //    get { return constants; }
+        //    set
+        //    {
+        //        constants = value;
+        //        NotifyOfPropertyChange(() => Constant);
+        //    }
+        //}
+        //public BindableCollection<Constant> SelectConstants { get; set; }
+
+
         private string forbiddenChars = "`~!@#$&_|{}><?₴\'!№?_\"";
         public string [] Text { get; set; }
         private string listPairs;
@@ -102,7 +118,9 @@ namespace User_Interface.ViewModels
             Box = new TextBox();
             PairsBoxes = new ObservableCollection<TextBox>();
             pairs = new Pairs();
-            pairsDictionary=new PairsDictionary();
+            pairsDictionary=new PairsDictionary();            
+            constants = new Constants();
+            constants.AddConstants(pairsDictionary);
         }
 
         public void CreateTextBoxPairs()
@@ -143,6 +161,7 @@ namespace User_Interface.ViewModels
             {
                 e.Handled = true;
             }
+            
         }
         public void AddMainPairs(object sender, KeyEventArgs e)
         {
@@ -169,35 +188,19 @@ namespace User_Interface.ViewModels
                 {
                     formulaCalculation();
                 }
-                //if (ActiveTextBox != null && activeTextBox.Text.Split('=').Any())
-                //{
-                //    ActiveTextBox.Text = ActiveTextBox.Text.Remove(ActiveTextBox.SelectionStart - 1, 1);
-                //    Text = ActiveTextBox.Text.Split("=");
-
-                //    ReversePolishNotation reverse = new ReversePolishNotation();
-                //    Queue<string> formula = reverse.GetReversePolishNotations(ActiveTextBox.Text, pairsDictionary);
-                //    Calculation calculation = new Calculation();
-                //    double result = calculation.getResult(formula);
-                //    pairs.Name = Text[0]; pairs.Values = result.ToString();
-                //    ActiveTextBox.Text += $"={result};";
-                //    pairsDictionary.AddDictionary(pairs);
-                //    ActiveTextBox.Focus();
-                //    ActiveTextBox.CaretIndex = ActiveTextBox.Text.Length;
-                //}
             }
         }
         public void formulaCalculation()
         {
-
             ActiveTextBox.Text = ActiveTextBox.Text.Remove(ActiveTextBox.SelectionStart - 1, 1);
             Text = ActiveTextBox.Text.Split("=");
 
             ReversePolishNotation reverse = new ReversePolishNotation();
             Queue<string> formula = reverse.GetReversePolishNotations(ActiveTextBox.Text, pairsDictionary);
             Calculation calculation = new Calculation();
-            double result = calculation.getResult(formula);
+            string result = calculation.getResult(formula);
 
-            pairs.Name = Text[0];pairs.Values = result.ToString();
+            pairs.Name = Text[0];pairs.Values = result;
             ActiveTextBox.Text += $"={result};";
 
             pairsDictionary.AddDictionary(pairs);
@@ -255,6 +258,20 @@ namespace User_Interface.ViewModels
             x.Text = x.Text.Insert(caretIndex, number);
             x.Focus();
             x.CaretIndex = caretIndex + 1;
+        }
+        public void Pi(object sender)
+        {
+            if (ActiveTextBox != null)
+            {
+                SymbolInsert(ActiveTextBox, "π");
+            }
+        }
+        public void e(object sender)
+        {
+            if (ActiveTextBox != null)
+            {
+                SymbolInsert(ActiveTextBox, "e");
+            }
         }
         public void Root(object sender)
         {
@@ -387,6 +404,12 @@ namespace User_Interface.ViewModels
             SymbolInsert(ActiveTextBox, "=");
             formulaCalculation();
         }
-
+        public void Equalse()
+        {
+            if(ActiveTextBox!= null)
+            {
+                SymbolInsert(ActiveTextBox, "=");
+            }
+        }
     }
 }

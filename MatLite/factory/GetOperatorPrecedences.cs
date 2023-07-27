@@ -19,6 +19,7 @@ namespace MatLite.factory
                 case "/":
                     return 2;
                 case "^":
+                case "√":
                     return 3;
                 default:
                     return 0;

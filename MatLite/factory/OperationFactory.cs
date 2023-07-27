@@ -31,5 +31,10 @@ namespace MatLite.factory
             }
             return double.NaN;
         }
+        public double getOperationSquare(double x, double y)
+        {
+            SquareRoot notPairsRoot = new SquareRoot();
+            return notPairsRoot.compute(x, y);
+        }
     }
 }

@@ -9,6 +9,5 @@ namespace MatLite.operation
     internal interface MathOperation
     {
         public double compute(double x, double y);
-
     }
 }

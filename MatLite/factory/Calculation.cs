@@ -9,9 +9,9 @@ namespace MatLite.factory
 {
     public class Calculation:OperationFactory
     {
-        private double result;
+        private double result; private string Result;
         private Stack<double> stackNums=new Stack<double>();
-        public double getResult(Queue<string> reversPN)
+        public string getResult(Queue<string> reversPN)
         {
             foreach(string rever in reversPN)
             {
@@ -21,19 +21,27 @@ namespace MatLite.factory
                 }
                 else
                 {
-                    if (stackNums.Count >= 2)
+                    if (rever == "√")
+                    {
+                        result = getOperationSquare(stackNums.Pop(), 0);
+                        stackNums.Push(result);
+                    }
+                    else if (stackNums.Count >= 2)
                     {
                         result = getOperation(rever, stackNums.Pop(), stackNums.Pop());
                         stackNums.Push(result);
-                    }
+                    }                    
                     else
                     {
                         break;
                     }
                 }
+                if(stackNums.Count == 1)
+                {
+                    Result = string.Format("{0:0.###}", result);
+                }
             }
-
-            return result;
+            return Result;
         }
     }
 }
