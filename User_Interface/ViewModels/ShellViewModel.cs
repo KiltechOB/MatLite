@@ -21,17 +21,6 @@ namespace User_Interface.ViewModels
     public class ShellViewModel : Screen
     {
         private Constants constants;
-        //public Constants Constant
-        //{
-        //    get { return constants; }
-        //    set
-        //    {
-        //        constants = value;
-        //        NotifyOfPropertyChange(() => Constant);
-        //    }
-        //}
-        //public BindableCollection<Constant> SelectConstants { get; set; }
-
 
         private string forbiddenChars = "`~!@#$&_|{}><?₴\'!№?_\"";
         public string [] Text { get; set; }
@@ -67,7 +56,6 @@ namespace User_Interface.ViewModels
                 NotifyOfPropertyChange(() => pairsDictionary);
             }
         }
-
         private ObservableCollection<TextBox> pairsBoxes;
         public ObservableCollection<TextBox> PairsBoxes
         {
@@ -78,7 +66,6 @@ namespace User_Interface.ViewModels
                 NotifyOfPropertyChange(() => PairsBoxes);
             }
         }
-
         private ObservableCollection<TextBox> textBoxes;
         public ObservableCollection<TextBox> TextBoxes
         {
@@ -111,18 +98,17 @@ namespace User_Interface.ViewModels
                 NotifyOfPropertyChange(() => ActiveTextBox);
             }
         }
-
         public ShellViewModel()
         {
             TextBoxes = new ObservableCollection<TextBox>();
             Box = new TextBox();
             PairsBoxes = new ObservableCollection<TextBox>();
             pairs = new Pairs();
-            pairsDictionary=new PairsDictionary();            
+            pairsDictionary = new PairsDictionary();            
             constants = new Constants();
             constants.AddConstants(pairsDictionary);
-        }
-
+            
+        }     
         public void CreateTextBoxPairs()
         {
             Box = new TextBox();
@@ -160,9 +146,9 @@ namespace User_Interface.ViewModels
             if (forbiddenChars.Contains(e.Text))
             {
                 e.Handled = true;
-            }
-            
+            }           
         }
+
         public void AddMainPairs(object sender, KeyEventArgs e)
         {
             if (PairsBoxes.Count() > 0 && e.Key == Key.OemSemicolon)
@@ -174,15 +160,16 @@ namespace User_Interface.ViewModels
                     pairs.Name = Text[0]; pairs.Values = Text[1];
 
                     ActiveTextBox.Text += ';';
-                    pairsDictionary.AddDictionary(pairs);
                     ActiveTextBox.Focus();
                     ActiveTextBox.CaretIndex = ActiveTextBox.Text.Length;
+                    pairsDictionary.AddDictionary(pairs); pairsDictionary.WritePairs();
+                    ListPairs = pairsDictionary.FullName;
                 }
             }
         }
         public void formulaSize(object sender, KeyEventArgs e)
         {                  
-            if (TextBoxes.Count() > 0 && e.Key == Key.OemSemicolon)
+            if ((TextBoxes.Count() > 0 && e.Key == Key.OemSemicolon))
             {
                 if (ActiveTextBox != null)
                 {
@@ -192,18 +179,28 @@ namespace User_Interface.ViewModels
         }
         public void formulaCalculation()
         {
+            
             ActiveTextBox.Text = ActiveTextBox.Text.Remove(ActiveTextBox.SelectionStart - 1, 1);
-            Text = ActiveTextBox.Text.Split("=");
-
+            if (ActiveTextBox.Text.Contains("="))
+            {
+                Text = ActiveTextBox.Text.Split("=");
+                pairs.Name = Text[0];
+            }
             ReversePolishNotation reverse = new ReversePolishNotation();
             Queue<string> formula = reverse.GetReversePolishNotations(ActiveTextBox.Text, pairsDictionary);
             Calculation calculation = new Calculation();
             string result = calculation.getResult(formula);
 
-            pairs.Name = Text[0];pairs.Values = result;
+            pairs.Values = result;
+
+            if (ActiveTextBox.Text.Contains("="))
+            {
+                pairsDictionary.AddDictionary(pairs);
+                pairsDictionary.WritePairs();
+                ListPairs = pairsDictionary.FullName;
+            }
             ActiveTextBox.Text += $"={result};";
 
-            pairsDictionary.AddDictionary(pairs);
             ActiveTextBox.Focus();
             ActiveTextBox.CaretIndex = ActiveTextBox.Text.Length;
         }
@@ -222,11 +219,6 @@ namespace User_Interface.ViewModels
             x.KeyUp += AddMainPairs;
             x.GotFocus += TextBox_GotFocus;
             x.PreviewTextInput += TextBox_PreviewTextInput;
-        }
-
-        private void X_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            throw new NotImplementedException();
         }
 
         private void StylesFornulaBox(TextBox x)

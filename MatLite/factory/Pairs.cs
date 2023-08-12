@@ -21,7 +21,6 @@ namespace MatLite.factory
             this.Name = Name;
             this.Values = Values;
         }
-
         public string Converting(string name)
         {
             if (name.Equals(Name))

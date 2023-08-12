@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using User_Interface.ViewModels;
 
 namespace User_Interface.Views
 {
@@ -19,9 +20,5 @@ namespace User_Interface.Views
     /// </summary>
     public partial class ShellView : Window
     {
-        public ShellView()
-        {
-            InitializeComponent();
-        }
     }
 }

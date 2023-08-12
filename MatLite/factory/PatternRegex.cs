@@ -13,7 +13,7 @@ namespace MatLite.factory
         {
             formula = formula.Replace(" ", ""); formula = formula.Replace(".", ",");
 
-            string pattern = @"\b[a-zA-Z\u0391-\u03A9\u03B1-\u03C9\,\d]+\b|\b\d+(\,\d+)?\b|\+|\-|\*|\/|\(|\)|\^|\√";
+            string pattern = @"\b[a-zA-Z\u0391-\u03A9\u03B1-\u03C9\,\d]+\b|\b\d+(\,\d+)?\b|\+|\-|\*|\/|\(|\)|\^|\√|\=";
             MatchCollection matches = Regex.Matches(formula, pattern);
             string[] formulaArray = new string[matches.Count];
 

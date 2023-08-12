@@ -16,7 +16,22 @@ namespace MatLite.factory
         public Queue<string> GetReversePolishNotations(string formula,PairsDictionary pairss=null)
         {
             PatternRegex pattern = new PatternRegex();
-            string[] formulaArray = pattern.PatternString(formula);
+            string[] formulaA = pattern.PatternString(formula);
+            string[] formulaArray;
+            try
+            {
+                if (pairss.ContainsPairs(formulaA[0]) && formulaA[1] == "=")
+                {
+                    formulaArray = (from x in formulaA
+                                    where x != formulaA[0] && x != formulaA[1]
+                                    select x).ToArray();
+                }
+                else
+                {
+                    formulaArray = formulaA;
+                }
+            }catch (Exception ex) { formulaArray = formulaA; }
+
 
             foreach (string charFormula in formulaArray)
             {
