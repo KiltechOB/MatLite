@@ -106,8 +106,7 @@ namespace User_Interface.ViewModels
             pairs = new Pairs();
             pairsDictionary = new PairsDictionary();            
             constants = new Constants();
-            constants.AddConstants(pairsDictionary);
-            
+            constants.AddConstants(pairsDictionary);            
         }     
         public void CreateTextBoxPairs()
         {
@@ -173,38 +172,92 @@ namespace User_Interface.ViewModels
             {
                 if (ActiveTextBox != null)
                 {
-                    formulaCalculation();
+                    ActiveTextBox.Text = ActiveTextBox.Text.Remove(ActiveTextBox.SelectionStart - 1, 1);
+                    CalculatoiunAll();
                 }
             }
         }
-        public void formulaCalculation()
+        public void formulaCalculation(TextBox TB)
         {
-            
-            ActiveTextBox.Text = ActiveTextBox.Text.Remove(ActiveTextBox.SelectionStart - 1, 1);
-            if (ActiveTextBox.Text.Contains("="))
+            int x = 1;
+            if (TB.Text.EndsWith(";")|| System.Text.RegularExpressions.Regex.IsMatch(TB.Text, @"[жЖ]$"))
             {
-                Text = ActiveTextBox.Text.Split("=");
-                pairs.Name = Text[0];
+                if (TB.Text.Contains("="))
+                {
+                    Text = TB.Text.Split("=");
+                    pairs.Name = Text[0];
+                    x = Text[Text.Count()-1].Length;
+                }
+                TB.Text = TB.Text.Remove(TB.Text.Length-x, x) ;
+                
+                ReversePolishNotation reverse = new ReversePolishNotation();
+                Queue<string> formula = reverse.GetReversePolishNotations(TB.Text, pairsDictionary);
+                Calculation calculation = new Calculation();
+                string result = calculation.getResult(formula);
+                pairs.Values = result;
+                if (TB.Text.Contains("=")&&Text.Count()>2)
+                {
+                    pairsDictionary.AddDictionary(pairs);
+                    pairsDictionary.WritePairs();
+                    ListPairs = pairsDictionary.FullName;
+                }
+                TB.Text += $"{result};";
+                TB.CaretIndex = ActiveTextBox.Text.Length;
+
+                //ActiveTextBox.Text = ActiveTextBox.Text.Remove(ActiveTextBox.SelectionStart - 1, 1);
+                //if (ActiveTextBox.Text.Contains("="))
+                //{
+                //    Text = ActiveTextBox.Text.Split("=");
+                //    pairs.Name = Text[0];
+                //}
+                //ReversePolishNotation reverse = new ReversePolishNotation();
+                //Queue<string> formula = reverse.GetReversePolishNotations(ActiveTextBox.Text, pairsDictionary);
+                //Calculation calculation = new Calculation();
+                //string result = calculation.getResult(formula);
+
+                //pairs.Values = result;
+
+                //if (ActiveTextBox.Text.Contains("="))
+                //{
+                //    pairsDictionary.AddDictionary(pairs);
+                //    pairsDictionary.WritePairs();
+                //    ListPairs = pairsDictionary.FullName;
+                //}
+                //ActiveTextBox.Text += $"={result};";
+
+                //ActiveTextBox.Focus();
+                //ActiveTextBox.CaretIndex = ActiveTextBox.Text.Length;
             }
-            ReversePolishNotation reverse = new ReversePolishNotation();
-            Queue<string> formula = reverse.GetReversePolishNotations(ActiveTextBox.Text, pairsDictionary);
-            Calculation calculation = new Calculation();
-            string result = calculation.getResult(formula);
-
-            pairs.Values = result;
-
-            if (ActiveTextBox.Text.Contains("="))
+            else
             {
-                pairsDictionary.AddDictionary(pairs);
-                pairsDictionary.WritePairs();
-                ListPairs = pairsDictionary.FullName;
-            }
-            ActiveTextBox.Text += $"={result};";
-
-            ActiveTextBox.Focus();
-            ActiveTextBox.CaretIndex = ActiveTextBox.Text.Length;
+                if (TB.Text.Contains("="))
+                {
+                    Text = TB.Text.Split("=");
+                    pairs.Name = Text[0];
+                }                
+                ReversePolishNotation reverse = new ReversePolishNotation();
+                Queue<string> formula = reverse.GetReversePolishNotations(TB.Text, pairsDictionary);
+                Calculation calculation = new Calculation();
+                string result = calculation.getResult(formula);
+                pairs.Values = result;
+                if (TB.Text.Contains("="))
+                {
+                    pairsDictionary.AddDictionary(pairs);
+                    pairsDictionary.WritePairs();
+                    ListPairs = pairsDictionary.FullName;
+                }
+                TB.Text += $"={result};";
+                TB.CaretIndex = ActiveTextBox.Text.Length;
+            }      
         }
-
+        private void CalculatoiunAll()
+        {
+            foreach (TextBox TB in TextBoxes)
+            {                
+                formulaCalculation(TB);
+            }
+            ActiveTextBox.Focus();
+        }
         private void StylesPairsBox(TextBox x)
         {
             x.Background = Brushes.White;
@@ -394,7 +447,7 @@ namespace User_Interface.ViewModels
         public void Сalculation(object sender, KeyEventArgs e)
         {
             SymbolInsert(ActiveTextBox, "=");
-            formulaCalculation();
+            CalculatoiunAll();
         }
         public void Equalse()
         {
