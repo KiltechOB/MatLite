@@ -6,29 +6,11 @@
         xmlns:local="clr-namespace:User_Interface.Views"
         xmlns:cal="http://www.caliburnproject.org"
         mc:Ignorable="d"
-        Title="ShellView" Height="500" Width="510" MinHeight="500" MinWidth="510"
+        Title="ShellView" Height="500" Width="550" MinHeight="500" MinWidth="550"
         WindowStartupLocation="CenterScreen">
-    
-    <Window.Resources>
-        <Style TargetType="TextBox" x:Key="TBStyle">
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="BorderBrush" Value="#cccccc"/>
-            <!--<Setter Property="BorderThickness" Value="2"/>-->
-            <Setter Property="Padding" Value="4"/>
-            <Setter Property="FontFamily" Value="Time New Roman"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Text" Value="Create text box and enter you formula:"/>
-            <Setter Property="MinWidth" Value="40"/>
-            <Setter Property="MinHeight" Value="40"/>
-            <Setter Property="MaxHeight" Value="70"/>
-            <Setter Property="AcceptsReturn" Value="True"/>
-            <Setter Property="AcceptsTab" Value="True"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        </Style>
-    </Window.Resources>
- 
+
     <Grid x:Name="GridMain">
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
             <ColumnDefinition Width="auto"/>
@@ -37,6 +19,9 @@
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
@@ -63,98 +48,147 @@
 
         <!--Buttons-->
         <!--Grid Column 3-->        
-        <Button x:Name="One" Grid.Row="4" Grid.Column="3" Height="25" Width="30" 
-                Margin="5">1</Button>
-        <Button x:Name="Three" Grid.Row="5" Grid.Column="3" Height="25" Width="30" Margin="5">
+        <Button x:Name="One" Grid.Row="4" Grid.Column="3" Height="25" Width="30" Margin="5" 
+                Style="{StaticResource ModernButton}">
+            1
+        </Button>
+        <Button x:Name="Three" Grid.Row="5" Grid.Column="3" Height="25" Width="30" Margin="5"
+                Style="{StaticResource ModernButton}">
             3
         </Button>
-        <Button x:Name="Five" Grid.Row="6" Grid.Column="3" Height="25" Width="30" Margin="5">
+        <Button x:Name="Five" Grid.Row="6" Grid.Column="3" Height="25" Width="30" Margin="5"
+                Style="{StaticResource ModernButton}">
             5
         </Button>
-        <Button x:Name="Seven" Grid.Row="7" Grid.Column="3" Height="25" Width="30" Margin="5">
+        <Button x:Name="Seven" Grid.Row="7" Grid.Column="3" Height="25" Width="30" Margin="5"
+                Style="{StaticResource ModernButton}">
             7
         </Button>
-        <Button x:Name="Nine" Grid.Row="8" Grid.Column="3" Height="25" Width="30" Margin="5">
+        <Button x:Name="Nine" Grid.Row="8" Grid.Column="3" Height="25" Width="30" Margin="5"
+                Style="{StaticResource ModernButton}">
             9
         </Button>
         <!--Grid Column 4-->
-        <Button x:Name="Two" Grid.Row="4" Grid.Column="4" Height="25" Width="30" Margin="5">
+        <Button x:Name="Two" Grid.Row="4" Grid.Column="4" Height="25" Width="30" Margin="5"
+                Style="{StaticResource ModernButton}">
             2
         </Button>
-        <Button x:Name="Four" Grid.Row="5" Grid.Column="4" Height="25" Width="30" Margin="5">
+        <Button x:Name="Four" Grid.Row="5" Grid.Column="4" Height="25" Width="30" Margin="5"
+                Style="{StaticResource ModernButton}">
             4
         </Button>
-        <Button x:Name="Six" Grid.Row="6" Grid.Column="4" Height="25" Width="30" Margin="5">
+        <Button x:Name="Six" Grid.Row="6" Grid.Column="4" Height="25" Width="30" Margin="5"
+                Style="{StaticResource ModernButton}">
             6
         </Button>
-        <Button x:Name="Eight" Grid.Row="7" Grid.Column="4" Height="25" Width="30" Margin="5">
+        <Button x:Name="Eight" Grid.Row="7" Grid.Column="4" Height="25" Width="30" Margin="5"
+                Style="{StaticResource ModernButton}">
             8
         </Button>
-        <Button x:Name="Zero" Grid.Row="8" Grid.Column="4" Height="25" Width="30" Margin="5">
+        <Button x:Name="Zero" Grid.Row="8" Grid.Column="4" Height="25" Width="30" Margin="5"
+                Style="{StaticResource ModernButton}">
             0
         </Button>
         
-        <Button x:Name="Plus" Grid.Row="9" Grid.Column="3" Height="25" Width="30" Margin="5">
+        <Button x:Name="Plus" Grid.Row="9" Grid.Column="3" Height="25" Width="30" Margin="5"
+                Style="{StaticResource ModernButton}">
             +
         </Button>
-        <Button x:Name="Minus" Grid.Row="9" Grid.Column="4" Height="25" Width="30" Margin="5">
+        <Button x:Name="Minus" Grid.Row="9" Grid.Column="4" Height="25" Width="30" Margin="5"
+                Style="{StaticResource ModernButton}">
             -
         </Button>
-        <Button x:Name="Multiplication" Grid.Row="10" Grid.Column="3" Height="25" Width="30" Margin="5">
+        <Button x:Name="Multiplication" Grid.Row="10" Grid.Column="3" Height="25" Width="30" Margin="5"
+                Style="{StaticResource ModernButton}">
             *
         </Button>
-        <Button x:Name="Division" Grid.Row="10" Grid.Column="4" Height="25" Width="30" Margin="5">
+        <Button x:Name="Division" Grid.Row="10" Grid.Column="4" Height="25" Width="30" Margin="5"
+                Style="{StaticResource ModernButton}">
             /
         </Button>
-        <Button x:Name="OpenBrackets" Grid.Row="11" Grid.Column="3" Height="25" Width="30" Margin="5">
+        <Button x:Name="OpenBrackets" Grid.Row="11" Grid.Column="3" Height="25" Width="30" Margin="5"
+                Style="{StaticResource ModernButton}">
             (
         </Button>
-        <Button x:Name="CloseBrackets" Grid.Row="11" Grid.Column="4" Height="25" Width="30" Margin="5">
+        <Button x:Name="CloseBrackets" Grid.Row="11" Grid.Column="4" Height="25" Width="30" Margin="5"
+                Style="{StaticResource ModernButton}">
             )
         </Button>
         <!--Grid column 2-->
-        <Button x:Name="Clear_All" Grid.Row="14" Grid.Column="2" MaxHeight="25"
-                Width="104" Height="25" VerticalAlignment="Bottom">Clear All</Button>
-        <Button x:Name="Pi" Grid.Row="3" Grid.Column="2" Height="25" Width="30" Margin="15,0,0,0"
-                HorizontalAlignment="Left">π</Button>
-        <Button x:Name="e" Grid.Row="3" Grid.Column="2" Height="25" Width="30" Margin="0,0,15,0"
-                HorizontalAlignment="Right">e</Button>
-        <!--Grid column 3-4-->
-        <Button x:Name="Root" Grid.Row="3" Grid.Column="3" Height="25" Width="80" 
-                Margin="5" Grid.ColumnSpan="2">Root</Button>
-        <Button x:Name="Сalculation" Grid.Row="13" Grid.Column="3" Grid.ColumnSpan="2"
-        Width="75" Height="40">
-            <TextBlock TextAlignment="Center">
-                <Run Text="Calculation"/>
-                <LineBreak/>
-                <Run Text="or press ';'"/>
-            </TextBlock>
+        <Button x:Name="Clear_All" Grid.Row="15" Grid.Column="2"  Height="25" Width="104"
+                VerticalAlignment="Bottom"
+                Style="{StaticResource ModernButton}">
+            Clear All
         </Button>
-        <Button x:Name="CreateTextBox" Grid.Row="14" Grid.Column="3" Grid.ColumnSpan="2"
-        Width="75" Height="25" VerticalAlignment="Bottom">Create Box</Button>
-        <Button x:Name="Equalse" Grid.Row="12" Grid.Column="3" Height="25" Width="75" 
-                Margin="5" Grid.ColumnSpan="2">=</Button>
+        <TextBlock  Grid.Row="3" Grid.Column="6" Margin="5"
+                   VerticalAlignment="Center" Text="Constants:" 
+                   Style="{StaticResource ModernTextBlock}"/>
+        <Button x:Name="Pi" Grid.Row="3" Grid.Column="7" Height="25" Width="30" Margin="5"
+                HorizontalAlignment="Right"
+                Style="{StaticResource ModernButton}">
+            π
+        </Button>
+        <Button x:Name="e" Grid.Row="3" Grid.Column="8" Height="25" Width="30" Margin="10,5,5,5"
+                HorizontalAlignment="Right"
+                Style="{StaticResource ModernButton}">
+            e
+        </Button>
+        <!--Grid column 3-4-->
+        <Button x:Name="Root" Grid.Row="3" Grid.Column="3" Height="25" Width="80" Margin="5" 
+                Grid.ColumnSpan="2"
+                Style="{StaticResource ModernButton}">
+            Root
+        </Button>
+
+        <Button x:Name="Сalculation" Grid.Row="13" Grid.Column="3" Height="40" Width="90" 
+                Margin="0,5,0,5" Grid.ColumnSpan="2"
+                    Style="{StaticResource ModernButton}">
+            Calculation
+        </Button>   
+            
+        <Button x:Name="CreateTextBox" Grid.Row="15" Grid.Column="3" Height="25" Width="90"
+                Margin="5,0,5,0" Grid.ColumnSpan="2" VerticalAlignment="Bottom" 
+                 Style="{StaticResource ModernButton}">
+            Create Box
+        </Button>
+        <Button x:Name="Equalse" Grid.Row="12" Grid.Column="3" Height="25" Width="80" Margin="5" 
+                Grid.ColumnSpan="2"
+                 Style="{StaticResource ModernButton}">
+            =
+        </Button>
         <!--Grid column 5-->
-        <Button x:Name="Square" Grid.Row="3" Grid.Column="5" Height="25" Width="80" 
-                Margin="5" Grid.ColumnSpan="1">Square</Button>
-        <Button x:Name="CreateTextBoxPairs" Grid.Row="4" Grid.Column="6" Grid.ColumnSpan="2"
-        Width="75" Height="25" Margin="0,5,0,0">Create Pairs</Button>
+        <Button x:Name="Square" Grid.Row="3" Grid.Column="5" Height="25" Width="75" Margin="5" 
+                HorizontalAlignment="Left"
+                Style="{StaticResource ModernButton}">
+            Square
+        </Button>
+        <Button x:Name="CreateMainPairs" Grid.Row="4" Grid.Column="6" Width="104" Height="25" Margin="55,5,-2,0" 
+                Grid.ColumnSpan="3" 
+                Style="{StaticResource ModernButton}">
+            Create Pairs
+        </Button>
         <!--Buttons-->
         <!-- Grid column 5-->
+        <TextBlock Grid.Row="3" Grid.Column="2"
+                   VerticalAlignment="Center" Text="Pairs :"                               
+                   Style="{StaticResource ModernTextBlock}"/>
+        <Border BorderBrush="#cccccc" BorderThickness="2" Grid.Row="3" 
+                Grid.Column="2" Grid.RowSpan="12" Margin="0,5,0,5">
+                <TextBlock x:Name="ListPairs" MinWidth="100" FontSize="16"
+                           FontFamily="Times New Roman" Margin="0,20,0,0"
+                           Text="{Binding ListPairs}" 
+                           Style="{StaticResource ModernTextBlock}">
 
-        <Border BorderBrush="#cccccc" BorderThickness="2" Grid.Row="4" 
-                Grid.Column="2" Grid.RowSpan="10" Margin="0,5,0,0">
-            <TextBlock x:Name="ListPairs" MinWidth="100" FontSize="18">
-            
-            </TextBlock>
+                </TextBlock>
         </Border>
 
-        <TextBlock x:Name="TitlePairs" Grid.Row="4" Grid.Column="5" Grid.ColumnSpan="2"
-                   Text="Enter initial pairs:" HorizontalAlignment="Center" FontSize="14"
-                   Margin="10,10,0,0"/>
+        <TextBlock x:Name="TitlePairs" Grid.Row="4" Grid.Column="5" Width="130"
+                   Margin="5,10,0,0" Grid.ColumnSpan="2" HorizontalAlignment="Left"
+                   Text="Enter initial pairs:" 
+                   Style="{StaticResource ModernTextBlock}"/>
 
 
-        <Grid Grid.Row="5" Grid.Column="5" Grid.ColumnSpan="3" Grid.RowSpan="2" Margin="10,5,0,0">
+        <Grid Grid.Row="5" Grid.Column="5" Grid.ColumnSpan="5" Grid.RowSpan="2" Margin="10,5,0,0">
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
                 <WrapPanel Orientation="Horizontal" Width="Auto">
                     <ItemsControl ItemsSource="{Binding PairsBoxes}">
@@ -165,7 +199,7 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <TextBox x:Name="BoxPairs" />
+                                <TextBox x:Name="BoxPairs"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
@@ -173,15 +207,17 @@
             </ScrollViewer>
         </Grid>
 
-        <Grid Grid.Row="7" Grid.Column="5" Grid.ColumnSpan="3" Grid.RowSpan="8" 
-              Margin="10,5,0,0">
-            <ScrollViewer VerticalScrollBarVisibility="Auto" >
+        <Grid Grid.Row="7" Grid.Column="5" Grid.ColumnSpan="5" Grid.RowSpan="8" 
+              Margin="10,5,0,0" x:Name="FomulaBorder">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel>
-                    <TextBlock x:Name="TitleBox" Text="Create text box and enter you formula:" HorizontalAlignment="Center" FontSize="14"/>
+                    <TextBlock x:Name="TitleBox" Text="Create text box and enter you formula:" 
+                               HorizontalAlignment="Center" 
+                               Style="{StaticResource ModernTextBlock}"/>
                     <ItemsControl  ItemsSource="{Binding TextBoxes}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <TextBox x:Name="Box" />
+                                <TextBox x:Name="Box"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>

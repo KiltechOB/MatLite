@@ -15,6 +15,7 @@ using MatLite.factory;
 using MatLite.constants;
 using System.Diagnostics.CodeAnalysis;
 using MathNet.Symbolics;
+using User_Interface.ViewModels.PairsBox;
 
 namespace User_Interface.ViewModels
 {
@@ -98,6 +99,8 @@ namespace User_Interface.ViewModels
                 NotifyOfPropertyChange(() => ActiveTextBox);
             }
         }
+        public MainPairs mainPairs;
+        public CalculationPairs calculationPairs;
         public ShellViewModel()
         {
             TextBoxes = new ObservableCollection<TextBox>();
@@ -106,9 +109,11 @@ namespace User_Interface.ViewModels
             pairs = new Pairs();
             pairsDictionary = new PairsDictionary();            
             constants = new Constants();
-            constants.AddConstants(pairsDictionary);            
+            constants.AddConstants(pairsDictionary);
+            mainPairs = new MainPairs(pairs, TextBoxes, PairsBoxes, pairsDictionary, ListPairs);
+            calculationPairs = new CalculationPairs(pairs, TextBoxes, pairsDictionary, ListPairs);
         }     
-        public void CreateTextBoxPairs()
+        public void CreateMainPairs()
         {
             Box = new TextBox();
             StylesPairsBox(Box);
@@ -147,116 +152,25 @@ namespace User_Interface.ViewModels
                 e.Handled = true;
             }           
         }
-
-        public void AddMainPairs(object sender, KeyEventArgs e)
+        public void AddingMainPairs(object sender, KeyEventArgs e)
         {
             if (PairsBoxes.Count() > 0 && e.Key == Key.OemSemicolon)
             {
-                if (ActiveTextBox != null)
-                {
-                    ActiveTextBox.Text = ActiveTextBox.Text.Remove(ActiveTextBox.SelectionStart - 1, 1);
-                    Text = ActiveTextBox.Text.Split("=");
-                    pairs.Name = Text[0]; pairs.Values = Text[1];
-
-                    ActiveTextBox.Text += ';';
-                    ActiveTextBox.Focus();
-                    ActiveTextBox.CaretIndex = ActiveTextBox.Text.Length;
-                    pairsDictionary.AddDictionary(pairs); pairsDictionary.WritePairs();
-                    ListPairs = pairsDictionary.FullName;
-                }
+                mainPairs.AddMainPairs(ListPairs,pairsDictionary,ActiveTextBox,TextBoxes);
+                ListPairs=mainPairs.WritePairs(pairsDictionary);
             }
         }
-        public void formulaSize(object sender, KeyEventArgs e)
-        {                  
+        public void AddingFormula(object sender, KeyEventArgs e)
+        {
             if ((TextBoxes.Count() > 0 && e.Key == Key.OemSemicolon))
             {
                 if (ActiveTextBox != null)
                 {
                     ActiveTextBox.Text = ActiveTextBox.Text.Remove(ActiveTextBox.SelectionStart - 1, 1);
-                    CalculatoiunAll();
+                    calculationPairs.CalculatoiunAll(TextBoxes);
+                    ListPairs = mainPairs.WritePairs(pairsDictionary);
                 }
             }
-        }
-        public void formulaCalculation(TextBox TB)
-        {
-            int x = 1;
-            if (TB.Text.EndsWith(";")|| System.Text.RegularExpressions.Regex.IsMatch(TB.Text, @"[жЖ]$"))
-            {
-                if (TB.Text.Contains("="))
-                {
-                    Text = TB.Text.Split("=");
-                    pairs.Name = Text[0];
-                    x = Text[Text.Count()-1].Length;
-                }
-                TB.Text = TB.Text.Remove(TB.Text.Length-x, x) ;
-                
-                ReversePolishNotation reverse = new ReversePolishNotation();
-                Queue<string> formula = reverse.GetReversePolishNotations(TB.Text, pairsDictionary);
-                Calculation calculation = new Calculation();
-                string result = calculation.getResult(formula);
-                pairs.Values = result;
-                if (TB.Text.Contains("=")&&Text.Count()>2)
-                {
-                    pairsDictionary.AddDictionary(pairs);
-                    pairsDictionary.WritePairs();
-                    ListPairs = pairsDictionary.FullName;
-                }
-                TB.Text += $"{result};";
-                TB.CaretIndex = ActiveTextBox.Text.Length;
-
-                //ActiveTextBox.Text = ActiveTextBox.Text.Remove(ActiveTextBox.SelectionStart - 1, 1);
-                //if (ActiveTextBox.Text.Contains("="))
-                //{
-                //    Text = ActiveTextBox.Text.Split("=");
-                //    pairs.Name = Text[0];
-                //}
-                //ReversePolishNotation reverse = new ReversePolishNotation();
-                //Queue<string> formula = reverse.GetReversePolishNotations(ActiveTextBox.Text, pairsDictionary);
-                //Calculation calculation = new Calculation();
-                //string result = calculation.getResult(formula);
-
-                //pairs.Values = result;
-
-                //if (ActiveTextBox.Text.Contains("="))
-                //{
-                //    pairsDictionary.AddDictionary(pairs);
-                //    pairsDictionary.WritePairs();
-                //    ListPairs = pairsDictionary.FullName;
-                //}
-                //ActiveTextBox.Text += $"={result};";
-
-                //ActiveTextBox.Focus();
-                //ActiveTextBox.CaretIndex = ActiveTextBox.Text.Length;
-            }
-            else
-            {
-                if (TB.Text.Contains("="))
-                {
-                    Text = TB.Text.Split("=");
-                    pairs.Name = Text[0];
-                }                
-                ReversePolishNotation reverse = new ReversePolishNotation();
-                Queue<string> formula = reverse.GetReversePolishNotations(TB.Text, pairsDictionary);
-                Calculation calculation = new Calculation();
-                string result = calculation.getResult(formula);
-                pairs.Values = result;
-                if (TB.Text.Contains("="))
-                {
-                    pairsDictionary.AddDictionary(pairs);
-                    pairsDictionary.WritePairs();
-                    ListPairs = pairsDictionary.FullName;
-                }
-                TB.Text += $"={result};";
-                TB.CaretIndex = ActiveTextBox.Text.Length;
-            }      
-        }
-        private void CalculatoiunAll()
-        {
-            foreach (TextBox TB in TextBoxes)
-            {                
-                formulaCalculation(TB);
-            }
-            ActiveTextBox.Focus();
         }
         private void StylesPairsBox(TextBox x)
         {
@@ -269,7 +183,7 @@ namespace User_Interface.ViewModels
             x.Height = 60;
             x.VerticalContentAlignment = VerticalAlignment.Center;
             x.HorizontalContentAlignment = HorizontalAlignment.Center;
-            x.KeyUp += AddMainPairs;
+            x.KeyUp += AddingMainPairs;
             x.GotFocus += TextBox_GotFocus;
             x.PreviewTextInput += TextBox_PreviewTextInput;
         }
@@ -288,7 +202,7 @@ namespace User_Interface.ViewModels
             x.AcceptsTab = true;
             x.VerticalContentAlignment = VerticalAlignment.Center;
             x.HorizontalContentAlignment = HorizontalAlignment.Center;
-            x.KeyUp += formulaSize;
+            x.KeyUp += AddingFormula;
             x.GotFocus += TextBox_GotFocus;
             x.PreviewTextInput += TextBox_PreviewTextInput;
         }
@@ -297,10 +211,10 @@ namespace User_Interface.ViewModels
         {
             ActiveTextBox = sender as TextBox;
         }
-        public void SymbolInsert(TextBox x, string number)
+        public void SymbolInsert(TextBox x, string values)
         {
             int caretIndex = x.CaretIndex;
-            x.Text = x.Text.Insert(caretIndex, number);
+            x.Text = x.Text.Insert(caretIndex, values);
             x.Focus();
             x.CaretIndex = caretIndex + 1;
         }
@@ -446,8 +360,11 @@ namespace User_Interface.ViewModels
         }
         public void Сalculation(object sender, KeyEventArgs e)
         {
-            SymbolInsert(ActiveTextBox, "=");
-            CalculatoiunAll();
+            if (ActiveTextBox != null)
+            {
+                SymbolInsert(ActiveTextBox, "=");
+                calculationPairs.CalculatoiunAll(TextBoxes);
+            }
         }
         public void Equalse()
         {

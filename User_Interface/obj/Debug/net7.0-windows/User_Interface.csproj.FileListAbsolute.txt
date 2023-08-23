@@ -51,3 +51,6 @@ C:\Project\MatLite\User_Interface\bin\Debug\net7.0-windows\zh-Hans\FSharp.Core.r
 C:\Project\MatLite\User_Interface\bin\Debug\net7.0-windows\zh-Hant\FSharp.Core.resources.dll
 C:\Project\MatLite\User_Interface\bin\Debug\net7.0-windows\MatLite.dll
 C:\Project\MatLite\User_Interface\bin\Debug\net7.0-windows\MatLite.pdb
+C:\Project\MatLite\User_Interface\obj\Debug\net7.0-windows\Theme\ButtonTheme.baml
+C:\Project\MatLite\User_Interface\obj\Debug\net7.0-windows\Theme\TextblockTheme.baml
+C:\Project\MatLite\User_Interface\obj\Debug\net7.0-windows\Theme\TextboxTheme.baml

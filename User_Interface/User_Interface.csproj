@@ -8,16 +8,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Model\**" />
+    <EmbeddedResource Remove="Model\**" />
+    <None Remove="Model\**" />
+    <Page Remove="Model\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Caliburn.Micro" Version="4.0.212" />
     <PackageReference Include="Caliburn.Micro.Core" Version="4.0.212" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Model\" />
+    <ProjectReference Include="..\MatLite\MatLite.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MatLite\MatLite.csproj" />
+    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>

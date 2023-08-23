@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET7_0;NETCOREAPP
 C:\Project\MatLite\User_Interface\App.xaml
-1-1351704627
+4-2055425603
 
-51451445128
-2091021158113
-Views\ShellView.xaml;
+7328443147
+209141413255
+Theme\ButtonTheme.xaml;Theme\TextblockTheme.xaml;Theme\TextboxTheme.xaml;Views\ShellView.xaml;
 
 False
 
