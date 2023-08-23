@@ -7,7 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatLite", "MatLite\MatLite.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interface", "Interface\Interface.csproj", "{5638D495-BEC9-4436-97E3-13A0FAED9153}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "User_Interface", "User_Interface\User_Interface.csproj", "{D4AA49CD-E0BA-4619-B3D6-F9413350AE2D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "User_Interface", "User_Interface\User_Interface.csproj", "{D4AA49CD-E0BA-4619-B3D6-F9413350AE2D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1726A900-C9C2-406E-B6F0-A5187BA571F5}"
+	ProjectSection(SolutionItems) = preProject
+		TextFile1.txt = TextFile1.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
