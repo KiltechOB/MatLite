@@ -388,8 +388,8 @@ namespace User_Interface.ViewModels
         {
             if (ActiveTextBox != null)
             {
-                SymbolInsert(ActiveTextBox, "=");
                 calculationPairs.CalculatoiunAll(TextBoxes);
+                ListPairs = mainPairs.WritePairs(pairsDictionary);
             }
         }
         public void Equalse()
