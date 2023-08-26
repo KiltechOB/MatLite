@@ -101,6 +101,7 @@ namespace User_Interface.ViewModels
         }
         public MainPairs mainPairs;
         public CalculationPairs calculationPairs;
+        public Grid GridMain { get; set; }
         public ShellViewModel()
         {
             TextBoxes = new ObservableCollection<TextBox>();
@@ -112,6 +113,7 @@ namespace User_Interface.ViewModels
             constants.AddConstants(pairsDictionary);
             mainPairs = new MainPairs(pairs, TextBoxes, PairsBoxes, pairsDictionary, ListPairs);
             calculationPairs = new CalculationPairs(pairs, TextBoxes, pairsDictionary, ListPairs);
+            GridMain = new Grid();
         }     
         public void CreateMainPairs()
         {
@@ -135,7 +137,34 @@ namespace User_Interface.ViewModels
             PairsBoxes.Clear();
             forbiddenChars = forbiddenChars.Replace("=","");
         }
-
+        public void DeleteTextBox()
+        {
+            if(ActiveTextBox != null)
+            {
+                if (pairsBoxes.Contains(ActiveTextBox))
+                {
+                    Text = ActiveTextBox.Text.Split("=");
+                    if (pairsDictionary.ContainsPairs(Text[0]))
+                    {
+                        pairsDictionary.RemoveDictionary(Text[0]);
+                    }
+                    pairsBoxes.Remove(ActiveTextBox);
+                    calculationPairs.CalculatoiunAll(TextBoxes);
+                    ListPairs = mainPairs.WritePairs(pairsDictionary);
+                }
+                else
+                {
+                    Text = ActiveTextBox.Text.Split("=");
+                    if (pairsDictionary.ContainsPairs(Text[0]))
+                    {
+                        pairsDictionary.RemoveDictionary(Text[0]);
+                    }
+                    TextBoxes.Remove(ActiveTextBox);
+                    calculationPairs.CalculatoiunAll(TextBoxes);
+                    ListPairs = mainPairs.WritePairs(pairsDictionary);
+                }
+            }
+        }
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             if (ActiveTextBox.Text.Contains("="))
@@ -146,7 +175,6 @@ namespace User_Interface.ViewModels
             {
                 forbiddenChars = forbiddenChars.Replace("=", "");
             }
-
             if (forbiddenChars.Contains(e.Text))
             {
                 e.Handled = true;
@@ -171,13 +199,14 @@ namespace User_Interface.ViewModels
                     ListPairs = mainPairs.WritePairs(pairsDictionary);
                 }
             }
-        }
+        }     
         private void StylesPairsBox(TextBox x)
         {
             x.Background = Brushes.White;
             x.BorderBrush = new SolidColorBrush(Color.FromRgb(0xcc, 0xcc, 0xcc));
+            //x.BorderBrush = Brushes.Transparent;
             x.Padding = new Thickness(2);
-            x.FontFamily = new FontFamily("Times New Roman");
+            x.FontFamily = new FontFamily("Helvetica");
             x.FontSize = 18;
             x.MinWidth = 80;
             x.Height = 60;
@@ -193,13 +222,10 @@ namespace User_Interface.ViewModels
             x.Background = Brushes.White;
             x.BorderBrush = new SolidColorBrush(Color.FromRgb(0xcc, 0xcc, 0xcc));
             x.Padding = new Thickness(2);
-            x.FontFamily = new FontFamily("Times New Roman");
+            x.FontFamily = new FontFamily("Helvetica");
             x.FontSize = 18;
             x.MinWidth = 40;
-            x.MinHeight = 40;
-            x.MaxHeight = 110;
-            x.AcceptsReturn = true;
-            x.AcceptsTab = true;
+            x.MinHeight = 60;
             x.VerticalContentAlignment = VerticalAlignment.Center;
             x.HorizontalContentAlignment = HorizontalAlignment.Center;
             x.KeyUp += AddingFormula;

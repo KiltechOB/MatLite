@@ -81,7 +81,10 @@ namespace User_Interface.ViewModels.PairsBox
             {
                 foreach (TextBox TBs in TextBoxes)
                 {
-                    CalculationFormulaBox(TBs);
+                    if( TBs.Text.Length>2)
+                    {
+                        CalculationFormulaBox(TBs);
+                    }                    
                 }
             }
         }

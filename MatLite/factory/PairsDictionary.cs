@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,13 @@ namespace MatLite.factory
             else
             {
                 dictionary.Add(pairs.Name, pairs.Values);
+            }
+        }
+        public void RemoveDictionary(string Key)
+        {
+            if (dictionary.ContainsKey(Key))
+            {
+                dictionary.Remove(Key);
             }
         }
         public bool ContainsPairs(string Key)

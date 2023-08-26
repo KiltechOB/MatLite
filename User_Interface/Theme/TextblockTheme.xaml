@@ -3,7 +3,8 @@
     <Style TargetType="{x:Type TextBlock}"
            x:Key="ModernTextBlock">
         <Setter Property="Text" Value="{Binding Content}"/>
-        <Setter Property="FontFamily" Value="Times New Roman"/>
+        <Setter Property="FontFamily" Value="Helvetica"/>
         <Setter Property="FontSize" Value="18"/>
+
     </Style>
 </ResourceDictionary>

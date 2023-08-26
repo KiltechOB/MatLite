@@ -6,7 +6,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Theme/TextblockTheme.xaml"/>
-                <ResourceDictionary Source="Theme/TextboxTheme.xaml"/>
+                <ResourceDictionary Source="Theme/BorderTheme.xaml"/>
                 <ResourceDictionary Source="Theme/ButtonTheme.xaml">
                     <local:Bootstrapper x:Key="Bootstrapper"/>
                 </ResourceDictionary>

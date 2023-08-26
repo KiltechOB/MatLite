@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:User_Interface.Views"
         xmlns:cal="http://www.caliburnproject.org"
         mc:Ignorable="d"
-        Title="ShellView" Height="500" Width="550" MinHeight="500" MinWidth="550"
+        Title="ShellView" Height="500" Width="630" MinHeight="500" MinWidth="630"
         WindowStartupLocation="CenterScreen">
 
     <Grid x:Name="GridMain">
@@ -116,7 +116,7 @@
         </Button>
         <!--Grid column 2-->
         <Button x:Name="Clear_All" Grid.Row="15" Grid.Column="2"  Height="25" Width="104"
-                VerticalAlignment="Bottom"
+                VerticalAlignment="Bottom" Margin="0,5,0,0"
                 Style="{StaticResource ModernButton}">
             Clear All
         </Button>
@@ -128,7 +128,7 @@
                 Style="{StaticResource ModernButton}">
             π
         </Button>
-        <Button x:Name="e" Grid.Row="3" Grid.Column="8" Height="25" Width="30" Margin="10,5,5,5"
+        <Button x:Name="e" Grid.Row="3" Grid.Column="8" Height="25" Width="30" Margin="5"
                 HorizontalAlignment="Right"
                 Style="{StaticResource ModernButton}">
             e
@@ -146,10 +146,15 @@
             Calculation
         </Button>   
             
-        <Button x:Name="CreateTextBox" Grid.Row="15" Grid.Column="3" Height="25" Width="90"
-                Margin="5,0,5,0" Grid.ColumnSpan="2" VerticalAlignment="Bottom" 
+        <Button x:Name="CreateTextBox" Grid.Row="15" Grid.Column="5" Height="25" Width="90"
+                Margin="5,0,5,0" Grid.ColumnSpan="2" VerticalAlignment="Bottom" HorizontalAlignment="Left" 
                  Style="{StaticResource ModernButton}">
             Create Box
+        </Button>
+        <Button x:Name="DeleteTextBox" Grid.Row="15" Grid.Column="3" Height="25" Width="90"
+                Margin="5,0,5,0" Grid.ColumnSpan="2" VerticalAlignment="Bottom" HorizontalAlignment="Left"
+                Style="{StaticResource ModernButton}">
+            Delete Box
         </Button>
         <Button x:Name="Equalse" Grid.Row="12" Grid.Column="3" Height="25" Width="80" Margin="5" 
                 Grid.ColumnSpan="2"
@@ -162,67 +167,71 @@
                 Style="{StaticResource ModernButton}">
             Square
         </Button>
-        <Button x:Name="CreateMainPairs" Grid.Row="4" Grid.Column="6" Width="104" Height="25" Margin="55,5,-2,0" 
-                Grid.ColumnSpan="3" 
+        <Button x:Name="CreateMainPairs" Grid.Row="4" Grid.Column="6" Width="104" Height="25" Margin="0,0,5,0" 
+                Grid.ColumnSpan="3" HorizontalAlignment="Right"
                 Style="{StaticResource ModernButton}">
             Create Pairs
         </Button>
         <!--Buttons-->
         <!-- Grid column 5-->
-        <TextBlock Grid.Row="3" Grid.Column="2"
-                   VerticalAlignment="Center" Text="Pairs :"                               
-                   Style="{StaticResource ModernTextBlock}"/>
-        <Border BorderBrush="#cccccc" BorderThickness="2" Grid.Row="3" 
-                Grid.Column="2" Grid.RowSpan="12" Margin="0,5,0,5">
-                <TextBlock x:Name="ListPairs" MinWidth="100" FontSize="16"
-                           FontFamily="Times New Roman" Margin="0,20,0,0"
+
+        <Border BorderBrush="#cccccc" Grid.Row="3" 
+                Grid.Column="2" Grid.RowSpan="12" Margin="5"
+                Style="{StaticResource BorderStyle}">
+            <TextBlock MinWidth="100" Margin="0,20,0,0" Padding="5"
                            Text="{Binding ListPairs}" 
                            Style="{StaticResource ModernTextBlock}">
-
-                </TextBlock>
+            </TextBlock>
         </Border>
-
+        
+        <TextBlock Grid.Row="3" Grid.Column="2" 
+           VerticalAlignment="Center" Margin="12,3,0,0" Text="Pairs :"                               
+           Style="{StaticResource ModernTextBlock}"/>
+        
         <TextBlock x:Name="TitlePairs" Grid.Row="4" Grid.Column="5" Width="130"
                    Margin="5,10,0,0" Grid.ColumnSpan="2" HorizontalAlignment="Left"
                    Text="Enter initial pairs:" 
                    Style="{StaticResource ModernTextBlock}"/>
 
 
-        <Grid Grid.Row="5" Grid.Column="5" Grid.ColumnSpan="5" Grid.RowSpan="2" Margin="10,5,0,0">
-            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
-                <WrapPanel Orientation="Horizontal" Width="Auto">
-                    <ItemsControl ItemsSource="{Binding PairsBoxes}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel Orientation="Horizontal" Width="Auto"/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <TextBox x:Name="BoxPairs"/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </WrapPanel>
-            </ScrollViewer>
+        <Grid Grid.Row="5" Grid.Column="5" Grid.ColumnSpan="5" Grid.RowSpan="2" Margin="5,5,0,0">
+            <Border Style="{StaticResource BorderStyle}">
+                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                    <WrapPanel Orientation="Horizontal" Width="Auto">
+                        <ItemsControl ItemsSource="{Binding PairsBoxes}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal" Width="Auto"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBox x:Name="BoxPairs"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </WrapPanel>
+                </ScrollViewer>
+            </Border>
         </Grid>
-
+        
+        <TextBlock x:Name="TitleBox" Text="Create text box and enter you formula:"  Grid.Row="7" Grid.Column="5" Grid.ColumnSpan="5"
+           Style="{StaticResource ModernTextBlock}" Margin="5,10,0,0"/>
         <Grid Grid.Row="7" Grid.Column="5" Grid.ColumnSpan="5" Grid.RowSpan="8" 
-              Margin="10,5,0,0" x:Name="FomulaBorder">
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <StackPanel>
-                    <TextBlock x:Name="TitleBox" Text="Create text box and enter you formula:" 
-                               HorizontalAlignment="Center" 
-                               Style="{StaticResource ModernTextBlock}"/>
-                    <ItemsControl  ItemsSource="{Binding TextBoxes}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <TextBox x:Name="Box"/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </StackPanel>
-            </ScrollViewer>
+              Margin="5,35,0,5" x:Name="FomulaBorder">
+            <Border Style="{StaticResource BorderStyle}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <ItemsControl  ItemsSource="{Binding TextBoxes}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBox x:Name="Box"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
         </Grid>
     </Grid>
 </Window>

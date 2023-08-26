@@ -16,7 +16,7 @@
                                 Height="{TemplateBinding Height}"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
-                                FontFamily="Time new roman"
+                                FontFamily="Helvetica"
                                 FontSize="16">
                             <Run Text="{TemplateBinding Content}"/>
                         </Button>
