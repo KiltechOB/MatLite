@@ -35,73 +35,20 @@ namespace User_Interface.ViewModels
                 NotifyOfPropertyChange(() => ListPairs);
             }
         }
-
-        private Pairs pair;
         public Pairs pairs
-        {
-            get { return pair; }
-            set
-            {
-                pair = value;
-                NotifyOfPropertyChange(() => pairs);
-            }
-        }
-
-        private PairsDictionary pairsdictionary;
+        { get; set; }
         public PairsDictionary pairsDictionary
-        {
-            get { return pairsdictionary; }
-            set
-            {
-                pairsdictionary = value;
-                NotifyOfPropertyChange(() => pairsDictionary);
-            }
-        }
-        private ObservableCollection<TextBox> pairsBoxes;
+        { get; set; }
         public ObservableCollection<TextBox> PairsBoxes
-        {
-            get { return pairsBoxes; }
-            set
-            {
-                pairsBoxes = value;
-                NotifyOfPropertyChange(() => PairsBoxes);
-            }
-        }
-        private ObservableCollection<TextBox> textBoxes;
+        { get; set; }
         public ObservableCollection<TextBox> TextBoxes
-        {
-            get { return textBoxes; }
-            set
-            {
-                textBoxes = value;
-                NotifyOfPropertyChange(() => TextBoxes);
-            }
-        }
-
-        private TextBox box;
+        { get; set; }
         public TextBox Box
-        {
-            get { return box; }
-            set
-            {
-                box = value;
-                NotifyOfPropertyChange(() => Box);
-            }
-        }
-
-        private TextBox activeTextBox;
+        { get; set; }
         public TextBox ActiveTextBox
-        {
-            get { return activeTextBox; }
-            set
-            {
-                activeTextBox = value;
-                NotifyOfPropertyChange(() => ActiveTextBox);
-            }
-        }
-        public MainPairs mainPairs;
-        public CalculationPairs calculationPairs;
-        public Grid GridMain { get; set; }
+        { get; set; }
+        public MainPairs mainPairs { get; set; }
+        public CalculationPairs calculationPairs { get; set; }
         public ShellViewModel()
         {
             TextBoxes = new ObservableCollection<TextBox>();
@@ -113,7 +60,6 @@ namespace User_Interface.ViewModels
             constants.AddConstants(pairsDictionary);
             mainPairs = new MainPairs(pairs, TextBoxes, PairsBoxes, pairsDictionary, ListPairs);
             calculationPairs = new CalculationPairs(pairs, TextBoxes, pairsDictionary, ListPairs);
-            GridMain = new Grid();
         }     
         public void CreateMainPairs()
         {
@@ -141,14 +87,14 @@ namespace User_Interface.ViewModels
         {
             if(ActiveTextBox != null)
             {
-                if (pairsBoxes.Contains(ActiveTextBox))
+                if (PairsBoxes.Contains(ActiveTextBox))
                 {
                     Text = ActiveTextBox.Text.Split("=");
                     if (pairsDictionary.ContainsPairs(Text[0]))
                     {
                         pairsDictionary.RemoveDictionary(Text[0]);
                     }
-                    pairsBoxes.Remove(ActiveTextBox);
+                    PairsBoxes.Remove(ActiveTextBox);
                     calculationPairs.CalculatoiunAll(TextBoxes);
                     ListPairs = mainPairs.WritePairs(pairsDictionary);
                 }

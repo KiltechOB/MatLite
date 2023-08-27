@@ -38,20 +38,23 @@ namespace User_Interface.ViewModels.PairsBox
                     x = Text[Text.Count() - 1].Length;
                 }
                 TB.Text = TB.Text.Remove(TB.Text.Length - x, x);
-
-                ReversePolishNotation reverse = new ReversePolishNotation();
-                Queue<string> formula = reverse.GetReversePolishNotations(TB.Text, pairsDictionary);
-                Calculation calculation = new Calculation();
-                string result = calculation.getResult(formula);
-                pairs.Values = result;
-                if (TB.Text.Contains("=") && Text.Count() > 2)
+                try
                 {
-                    pairsDictionary.AddDictionary(pairs);
-                    pairsDictionary.WritePairs();
-                    ListPairs = pairsDictionary.FullName;
+                    ReversePolishNotation reverse = new ReversePolishNotation();
+                    Queue<string> formula = reverse.GetReversePolishNotations(TB.Text, pairsDictionary);
+                    Calculation calculation = new Calculation();
+                    string result = calculation.getResult(formula);
+                    pairs.Values = result;
+                    if (TB.Text.Contains("=") && Text.Count() > 2)
+                    {
+                        pairsDictionary.AddDictionary(pairs);
+                        pairsDictionary.WritePairs();
+                        ListPairs = pairsDictionary.FullName;
+                    }
+                    TB.Text += $"{result};";
+                    TB.CaretIndex = TB.Text.Length;
                 }
-                TB.Text += $"{result};";
-                TB.CaretIndex = TB.Text.Length;
+                catch(Exception ex) { }
             }
             else
             {
@@ -60,19 +63,23 @@ namespace User_Interface.ViewModels.PairsBox
                     Text = TB.Text.Split("=");
                     pairs.Name = Text[0];
                 }
-                ReversePolishNotation reverse = new ReversePolishNotation();
-                Queue<string> formula = reverse.GetReversePolishNotations(TB.Text, pairsDictionary);
-                Calculation calculation = new Calculation();
-                string result = calculation.getResult(formula);
-                pairs.Values = result;
-                if (TB.Text.Contains("="))
+                try
                 {
-                    pairsDictionary.AddDictionary(pairs);
-                    pairsDictionary.WritePairs();
-                    ListPairs = pairsDictionary.FullName;
+                    ReversePolishNotation reverse = new ReversePolishNotation();
+                    Queue<string> formula = reverse.GetReversePolishNotations(TB.Text, pairsDictionary);
+                    Calculation calculation = new Calculation();
+                    string result = calculation.getResult(formula);
+                    pairs.Values = result;
+                    if (TB.Text.Contains("="))
+                    {
+                        pairsDictionary.AddDictionary(pairs);
+                        pairsDictionary.WritePairs();
+                        ListPairs = pairsDictionary.FullName;
+                    }
+                    TB.Text += $"={result};";
+                    TB.CaretIndex = TB.Text.Length;
                 }
-                TB.Text += $"={result};";
-                TB.CaretIndex = TB.Text.Length;
+                catch(Exception ex){ }
             }
         }
         public void CalculatoiunAll(ObservableCollection<TextBox> TextBoxes)
