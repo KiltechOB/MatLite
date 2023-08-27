@@ -44,8 +44,7 @@ namespace User_Interface.ViewModels.PairsBox
                 ActiveTextBox.Focus();
                 ActiveTextBox.CaretIndex = ActiveTextBox.Text.Length;
                 pairsDictionary.AddDictionary(pairs);
-                CalculatoiunAll(TextBoxes);
-                
+                CalculatoiunAll(TextBoxes);               
             }
         }
         public string WritePairs(PairsDictionary pairsDictionary)

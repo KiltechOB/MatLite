@@ -70,3 +70,5 @@ C:\Project\MatLite\MatLite\obj\Debug\net7.0\refint\MatLite.dll
 C:\Project\MatLite\MatLite\obj\Debug\net7.0\MatLite.pdb
 C:\Project\MatLite\MatLite\obj\Debug\net7.0\MatLite.genruntimeconfig.cache
 C:\Project\MatLite\MatLite\obj\Debug\net7.0\ref\MatLite.dll
+C:\Project\MatLite\MatLite\obj\Debug\net7.0\MatLite.Properties.Resources.resources
+C:\Project\MatLite\MatLite\obj\Debug\net7.0\MatLite.csproj.GenerateResource.cache

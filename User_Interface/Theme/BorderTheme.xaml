@@ -3,7 +3,7 @@
     <Style TargetType="{x:Type Border}" x:Key="BorderStyle">
         <Setter Property="BorderBrush" Value="LightGray"/>
         <Setter Property="Background" Value="White"/>
-        <Setter Property="BorderThickness" Value="3.5"/>
+        <Setter Property="BorderThickness" Value="3,5"/>
         <Setter Property="CornerRadius">
             <Setter.Value>
                 <CornerRadius TopLeft="8" TopRight="8"

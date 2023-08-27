@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:User_Interface.Views"
         xmlns:cal="http://www.caliburnproject.org"
         mc:Ignorable="d"
-        Title="ShellView" Height="500" Width="630" MinHeight="500" MinWidth="630"
+        Title="ShellView" Height="520" Width="630" MinHeight="520" MinWidth="630"
         WindowStartupLocation="CenterScreen">
 
     <Grid>
@@ -193,7 +193,7 @@
         <Grid Grid.Row="5" Grid.Column="5" Grid.ColumnSpan="5" Grid.RowSpan="2" Margin="5,5,0,0">
             <Border Style="{StaticResource BorderStyle}">
                 <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
-                    <WrapPanel Orientation="Horizontal" Width="Auto">
+                    <WrapPanel Orientation="Horizontal" Width="Auto" Margin="-1">
                         <ItemsControl ItemsSource="{Binding PairsBoxes}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
@@ -217,7 +217,7 @@
               Margin="5,35,0,5">
             <Border Style="{StaticResource BorderStyle}">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <StackPanel>
+                    <StackPanel Margin="-1">
                         <ItemsControl  ItemsSource="{Binding TextBoxes}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>

@@ -23,7 +23,7 @@ namespace User_Interface.ViewModels
     {
         private Constants constants;
 
-        private string forbiddenChars = "`~!@#$&_|{}><?₴\'!№?_\"";
+        private string forbiddenChars = "`~!@#$&_|{}><?₴\'!№?_[]\"";
         public string [] Text { get; set; }
         private string listPairs;
         public string ListPairs
