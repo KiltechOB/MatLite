@@ -217,7 +217,7 @@
               Margin="5,35,0,5">
             <Border Style="{StaticResource BorderStyle}">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <StackPanel Margin="-1">
+                    <StackPanel Margin="-1,-1,-1,-1">
                         <ItemsControl  ItemsSource="{Binding TextBoxes}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
