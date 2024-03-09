@@ -10,7 +10,7 @@ namespace MatLite.operation
     {
         public double compute(double x, double y)
         {
-            return x- y;
+            return x - y;
         }
     }
 }
