@@ -8,9 +8,9 @@ namespace MatLite.operation
 {
     internal class MinusOperation : MathOperation
     {
-        public double compute(double x, double y)
+        public double compute(double c, double y)
         {
-            return x - y;
+            return c - y;
         }
     }
 }
